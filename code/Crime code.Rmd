@@ -1,0 +1,352 @@
+```{r}
+library("readxl")
+library(tidyverse)
+library(ggplot2)
+crime <- read_excel("D:/STAT6210/crime.xlsx")
+crime
+#names(crime) <- c("Last Name","First Name"," Age on Date of Crime","Race","Sex","State","Tags","CIU","Guilty Plea","IO","Worst Crime","Occurred","Convicted","Exonerated","Sentence","Death Penalty","DNA only","FC","MWID","F/MFE","P/FA","OM","ILD","State Statute","State Claim Made","0 time","Prem","Pending","Denied","State Award","Amount","Non-Statutory Case Filed","No Time","Unfiled","Dismissed or verdict for D","Pending","Award via Settlement or Verdict for P","Premature","Amount__1","Years Lost")
+```
+
+for(i in c(3,11)){
+ crime[is.na(crime[,i]), i] <- colMeans(crime[,i], na.rm = TRUE)
+}
+for(i in c(8,9,10,16:23,25:40)){
+ crime[is.na(crime[,i]), i] <- 0
+}
+crime <- na.omit(crime)
+crime=crime%>%
+  select(-"Last Name",-"First Name")
+#write.csv(crime,file="crime1.csv",row.names=TRUE)
+
+```{r}
+crime <- read_csv("D:/STAT6210/crime1.csv")
+crime
+```
+
+```{r}
+#1
+a1=crime %>%
+     filter(`No Time?`==0) %>%
+count()
+a1
+crime %>%
+     filter(`No Time?`==1) %>%
+count()
+#2
+a2=crime %>%
+     filter(`No Time?`==0 & `Years Lost`<=1) %>%
+count()
+a2
+#3
+a3=crime %>%
+     filter(`No Time?`==0 & `Years Lost`>1) %>%
+count()
+a3
+#4
+a4_1=crime %>%
+  group_by(Race) %>%
+count()
+a4_1
+a4_2=crime %>%
+  group_by(Sex) %>%
+count()
+a4_2
+#5
+a5_1=crime %>%
+     filter(`No Time?`==0) %>%
+count(Sex)
+a5_1
+a5_2=crime %>%
+     filter(`No Time?`==0) %>%
+count(Race)
+a5_2
+#6
+a6_1=crime %>%
+     group_by(Race) %>%
+summarise(mean(`Years Lost`))
+a6_1
+a6_2=crime %>%
+     group_by(Sex) %>%
+summarise(mean(`Years Lost`))
+a6_2
+#7
+a7_1=crime %>%
+  group_by(CIU) %>%
+count(`State Claim Made?`==1)
+a7_1
+a7_2=crime %>%
+  group_by(CIU) %>%
+count(`State Award?`==1)
+a7_2
+a7_3=crime %>%
+  group_by(CIU) %>%
+count(`Non-Statutory Case Filed?`==1)
+a7_3
+a7_4=crime %>%
+  group_by(CIU) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a7_4
+```
+
+```{r}
+#8
+a8_1=crime %>%
+  group_by(`Guilty Plea`) %>%
+count(`State Claim Made?`==1)
+a8_1
+a8_2=crime %>%
+  group_by(`Guilty Plea`) %>%
+count(`State Award?`==1)
+a8_2
+a8_3=crime %>%
+  group_by(`Guilty Plea`) %>%
+count(`Non-Statutory Case Filed?`==1)
+a8_3
+a8_4=crime %>%
+  group_by(`Guilty Plea`) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a8_4
+```
+```{r}
+#9
+a9_1=crime %>%
+  group_by(IO) %>%
+count(`State Claim Made?`==1)
+a9_1
+a9_2=crime %>%
+  group_by(IO) %>%
+count(`State Award?`==1)
+a9_2
+a9_3=crime %>%
+  group_by(IO) %>%
+count(`Non-Statutory Case Filed?`==1)
+a9_3
+a9_4=crime %>%
+  group_by(IO) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a9_4
+```
+```{r}
+#10
+a10_1=crime %>%
+  group_by(`DNA only`) %>%
+count(`State Claim Made?`==1)
+a10_1
+a10_2=crime %>%
+  group_by(`DNA only`) %>%
+count(`State Award?`==1)
+a10_2
+a10_3=crime %>%
+  group_by(`DNA only`) %>%
+count(`Non-Statutory Case Filed?`==1)
+a10_3
+a10_4=crime %>%
+  group_by(`DNA only`) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a10_4
+```
+
+```{r}
+#11
+a11_1=crime %>%
+  group_by(`Death Penalty?`) %>%
+count(`State Claim Made?`==1)
+a11_1
+a11_2=crime %>%
+  group_by(`Death Penalty?`) %>%
+count(`State Award?`==1)
+a11_2
+a11_3=crime %>%
+  group_by(`Death Penalty?`) %>%
+count(`Non-Statutory Case Filed?`==1)
+a11_3
+a11_4=crime %>%
+  group_by(`Death Penalty?`) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a11_4
+```
+
+```{r}
+#12
+a12_1=crime %>%
+  group_by(`Worst Crime`) %>%
+count(`State Claim Made?`==1)
+a12_1
+a12_2=crime %>%
+  group_by(`Worst Crime`) %>%
+count(`State Award?`==1)
+a12_2
+a12_3=crime %>%
+  group_by(`Worst Crime`) %>%
+count(`Non-Statutory Case Filed?`==1)
+a12_3
+a12_4=crime %>%
+  group_by(`Worst Crime`) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a12_4
+```
+
+```{r}
+#13
+a13_1=crime %>%
+  group_by(Tags) %>%
+count(`State Claim Made?`==1)
+a13_1
+a13_2=crime %>%
+  group_by(Tags) %>%
+count(`State Award?`==1)
+a13_2
+a13_3=crime %>%
+  group_by(Tags) %>%
+count(`Non-Statutory Case Filed?`==1)
+a13_3
+a13_4=crime %>%
+  group_by(Tags) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a13_4
+```
+More Complex Inquiries
+```{r}
+#k=factor(crime$Race)
+#g=as.numeric(k)
+crime[, 25][is.na(crime[, 25])] <- 0
+crime[, 32][is.na(crime[, 32])] <- 0
+b1_1=crime %>%
+  group_by(Race) %>%
+summarise(mean1=mean(`State Claim Made?`),mean2=mean(`Non-Statutory Case Filed?`))
+
+ggplot(mapping = aes(x, y)) +
+  geom_bar(data = data.frame(x = b1_1$Race, y = b1_1$mean1), width = 0.8, stat = 'identity') +
+  geom_bar(data = data.frame(x = b1_1$Race, y = b1_1$mean2), width = 0.4, stat = 'identity', fill = 'red') +
+  theme_classic() + scale_y_continuous(expand = c(0, 0))
+
+#b1_1=crime %>%
+#  group_by(Race,Exonerated) %>%
+#summarise(mean1=mean(`State Claim Made?`)) %>%
+#do(plots=ggplot(data=b1_1) +
+#    aes(x=Exonerated, y=mean1) + geom_point())
+
+#ggplot(mapping = aes(x, y)) +
+#  geom_point(data = data.frame(x = b1_1$Exonerated, y = b1_1$mean1),colour = 'red') +
+#  geom_point(data = data.frame(x = b1_1$Exonerated, y = b1_1$mean2),colour = 'blue') +
+#  theme_classic() + scale_y_continuous(expand = c(0, 0))
+
+
+a8_1
+a8_2=crime %>%
+  group_by(`Guilty Plea`) %>%
+count(`State Award?`==1)
+a8_2
+a8_3=crime %>%
+  group_by(`Guilty Plea`) %>%
+count(`Non-Statutory Case Filed?`==1)
+a8_3
+a8_4=crime %>%
+  group_by(`Guilty Plea`) %>%
+count(`Award via Settlement or Verdict for P`==1)
+a8_4
+lm(`Non-Statutory Case Filed?`~.-Sentence,data=crime)
+```
+crime$Race=as.numeric(crime$Race)
+crime$Sex=as.numeric(crime$Sex)
+crime$State=as.numeric(crime$State)
+crime$Tags=as.numeric(crime$Tags)
+crime=crime%>%
+  select(-`State Statute?`)
+write.csv(crime,file="crime2.csv",row.names=TRUE)
+
+crime <- read_csv("D:/STAT6210/crime1.csv")
+
+
+```{r}
+library("readxl")
+library(ggplot2)
+library(caret)
+library(tree)
+library(e1071)
+library(MASS)
+library(rpart)
+library(tree)
+library(randomForest)
+library(gbm)
+library(fastAdaboost)
+library(xgboost)
+library(ROCR)
+library(stringdist)
+library(tidyverse)
+library(caret)
+crime <- read_csv("D:/STAT6210/crime2.csv")
+#lm(Amount__1~.-Sentence,data=crime)
+crime1=crime%>%
+  dplyr::select(-Convicted,-Exonerated,-Sentence,-Occurred)
+crime1$`Award via Settlement or Verdict for P`=factor(crime1$`Award via Settlement or Verdict for P`)
+names(crime1) <- make.names(names(crime1))
+train_val_id <- sample(nrow(crime1), size = floor(nrow(crime1)*.80),replace = FALSE)
+train <- crime1[train_val_id,]
+test<- crime1[-train_val_id,]
+  
+
+temp_ctrl <- trainControl(method = "cv",number = 5) #5-fold CV
+temp_grid <- expand.grid(mtry=1:20)
+
+temp_tune <-caret::train(Award.via.Settlement.or.Verdict.for.P~.,data=train,
+                         method="rf",
+                         trControl=temp_ctrl,
+                         tuneGrid=temp_grid,
+                         verbose=FALSE,
+                         metric="Accuracy"
+)
+temp_tune #we choose mtry=12
+
+#1
+model_rf <- randomForest(Award.via.Settlement.or.Verdict.for.P~.,data=train,mtry=13,ntree=500)
+model_rf_pred1 <- model_rf %>% 
+predict(test,type = "prob")
+rf_pred1=prediction(model_rf_pred1[,2],labels=test$Award.via.Settlement.or.Verdict.for.P)
+performance(rf_pred1,"auc")@y.values[[1]]
+rf1=model_rf_pred1[,2]
+
+rf.ROC <- performance(rf_pred1,"tpr","fpr")
+plot(rf.ROC)
+```
+
+```{r}
+crime2=crime1%>%
+  filter(State.Award.==0 | State.Award.==1)
+crime2$State.Award.=factor(crime2$State.Award.)
+train_val_id2 <- sample(nrow(crime2), size = floor(nrow(crime2)*.50),replace = FALSE)
+train2 <- crime2[train_val_id2,]
+val2<- crime2[-train_val_id2,]
+test0=crime1%>%
+  filter(State.Award.==2)
+temp_ctrl <- trainControl(method = "cv",number = 5) #5-fold CV
+temp_grid <- expand.grid(mtry=1:30)
+
+temp_tune <-caret::train(State.Award.~.,data=train2,
+                         method="rf",
+                         trControl=temp_ctrl,
+                         tuneGrid=temp_grid,
+                         verbose=FALSE,
+                         metric="Accuracy"
+)
+temp_tune #we choose mtry=18
+
+#2
+model_rf2 <- randomForest(State.Award.~.,data=train2,mtry=18,ntree=500)
+model_rf_pred2 <- model_rf2 %>% 
+predict(val2,type = "prob")
+rf_pred2=prediction(model_rf_pred2[,2],labels=val2$State.Award.)
+performance(rf_pred2,"auc")@y.values[[1]]
+rf2=model_rf_pred2[,2]
+
+rf.ROC2 <- performance(rf_pred2,"tpr","fpr")
+plot(rf.ROC2)
+
+
+testPreds <- predict(model_rf2,test0,type = "prob")
+```
+```{r}
+crime
+glm.fit <- glm(`Award via Settlement or Verdict for P` ~ .-Occurred-Convicted-Exonerated-Sentence, data = crime, family = binomial)
+```
+

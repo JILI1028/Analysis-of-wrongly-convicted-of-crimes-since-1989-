@@ -1,0 +1,136 @@
+Researchers in the United States have identified well over 2,000 individuals who were wrongly convicted of crimes that they did not commit since 1989.  Those individuals and considerable data about each of them are detailed in the National Registry of Exonerations – http://www.law.umich.edu/special/exoneration/Pages/about.aspx
+
+Professor Jeffrey Gutman of the GW Law School studies one aspect of wrongful convictions – the compensation of the wrongly convicted and has created a data set for each of the first 1900 persons wrongly convicted in a state court.  By way of background, it is important for you to know that there are two basic ways the wrongfully convicted can seek compensation.  First, 33 states have state statutes which permit exonerees to request compensation from a state court or state administrative body.  These statutes do not require the claimant to prove that the state or a state actor was at fault, but do require that they demonstrate their innocence of the crime.  Most of these state statutes impose limits on the amount of compensation permitted.  They are widely variable, but an example would be to limit compensation to $50,000 per year of wrongful incarceration, up to a maximum of $750,000.
+
+Second, the wrongly convicted may instead (or also) seek compensation in court for a violation of their civil rights or on various state law tort theories like false imprisonment or malicious prosecution.  These theories require the plaintiff to show that the state, county, municipality or officer engaged in a form of misconduct that caused the wrongful conviction.  If the plaintiff shows misconduct, there is no cap on any award.
+
+Not every exoneree is actually incarcerated.  A substantial number serve no time in prison, often because the crime they were alleged to have committed was a minor one.  Such people are never entitled to state statutory compensation, but sometimes file civil rights or tort claims.  And, not everyone who is incarcerated seeks compensation.  As you will see, many do not.  Some seek only state statutory compensation (if they were convicted in a state with such a statute) and some seek only a remedy under a civil rights or torts theory.  Some seek both.  And, many who seek compensation are denied it.
+
+You will receive a data set of the 1900 exonerees organized alphabetically by the state of conviction.
+
+The description of the variables in the order of the Excel columns are:
+
+ 
+Demographics
+
+Last Name	
+First Name	
+Age on the Date of the Crime	
+Race	
+Sex	
+State of conviction	
+
+Tags from the National Registry
+	
+CIU – whether the exoneration was the result of work by a Conviction Integrity Unit
+	1 = yes
+	0 = no
+Guilty Plea – whether the exoneree pled guilty to the crime
+	1 = yes
+	0 = no
+IO – whether the exoneree was helped by an innocence organization
+	1 = yes
+	0 = no
+
+Worst Crime: What was the worst crime of which the defendant was convicted?
+	1=murder
+	2=sexual assault
+	3=drugs
+	4=child sexual abuse
+	5=robbery
+	6=other
+
+Year of Crime
+Year of Conviction
+Year of Exoneration
+Death Penalty: Was the sentence the death penalty?
+0=NO
+	1=YES
+DNA: Was the defendant exonerated by DNA analysis?  Is this an Innocence Project case?
+	0=NO
+	1=YES
+
+FC:	Was a false confession a contributing factor to the conviction?
+		0=NO
+		1=YES
+
+MWID:	Was a mistaken witness ID a contributing factor to the conviction?
+		0=NO
+		1=YES
+
+F/MFE: Was false or misleading forensic evidence a contributing factor to the conviction?
+		0=NO
+		1=YES
+
+P/FA:	Was perjury or a false allegation a contributing factor to the conviction?
+		0=NO
+		1=YES
+
+OM:	Was official misconduct a contributing factor to the conviction?
+		0=NO
+		1=YES
+
+ILD:	Was an inadequate legal defense a contributing factor to the conviction?
+		0=NO
+		1=YES
+
+State Claim Made?	Was a state statutory claim made?
+		0=NO
+		1=YES
+		(If blank, it means there is no state statute)
+
+0 time?		Did the exoneree serve 0 time in prison?
+		0=NO
+		1=YES
+ 
+Prem:		Is the state statutory claim premature?  It is unfiled, but time remains to file
+		0=NO
+		1=YES
+
+Pend:		Is the state statutory claim pending?
+		0=NO
+		1=YES
+
+Denied:		Was the state claim made and denied or withdrawn?
+		0=NO
+		1=YES
+
+State Award:	Was the state claim granted?
+		0=NO
+		1=YES
+		2=unresolved (either premature or pending)
+
+Amount: The amount of the statutory award.
+
+Non-Statutory Claim Filed:	Was a non-statutory claim, e.g. a civil rights claim against government entities, filed?
+		0=NO
+		1=YES
+
+0 Time:		Did the exoneree serve no time in prison?
+		0=NO
+		1=YES
+
+Unfiled:		Did the exoneree not file a suit and cannot file in the future?
+		0=NO  (meaning filed)
+		1=YES  (meaning unfiled)
+
+Dismissed or Verdict for D: 	Did the exoneree file, but lose?
+		0=NO
+		1=YES
+
+Pending:	Is the claim filed and pending?
+		0=NO
+		1=YES
+
+Award:		Did the exoneree recover money by verdict or settlement?
+		0=NO
+		1=YES
+
+Premature:	Is the claim unfiled, but not yet barred by statute of limitations?  Premature?
+		0=NO
+		1=YES
+
+Amount:	The amount of recovery.
+		(Note that some are not disclosed and are highlighted in purple)
+
+Years Lost	The number of years lost to wrongful conviction.
